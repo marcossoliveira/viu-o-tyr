@@ -76,7 +76,7 @@ export default function HowToHelp() {
           </h3>
         </Reveal>
 
-        <RevealStagger className="mx-auto max-w-2xl space-y-5">
+        <RevealStagger className="w-full space-y-5">
           {findingSteps.map((step, i) => {
             const { Icon, label, value } = step;
             return (

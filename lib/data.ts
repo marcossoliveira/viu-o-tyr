@@ -199,9 +199,9 @@ export const sightings: {
   {
     id: 1,
     date: "17/04/2026",
-    location: "R. Otávio Queiroz, 27 — Vila Velha/ES",
+    location: "Esquina da Av. Luiz Emanoel Vellozo com a R. Otávio Queiroz - Praia de Itaparica",
     description:
-      "Último avistamento confirmado neste endereço. Týr foi visto correndo em direção à rua após um barulho alto.",
+      "Último avistamento confirmado neste endereço. Ele estava assustado e miando muito. Só vimos esse vídeo no dia posterior e ao chegar no local não o encontramos.",
     mapsLink: LAST_SIGHTING_MAPS_URL,
     image: publicImage("/images/sighting-1.jpg"),
     video: publicVideo("/videos/ultimo-avistamento.mp4"),
