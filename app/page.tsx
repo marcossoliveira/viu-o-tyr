@@ -1,3 +1,4 @@
+import StickyHeader from "@/components/StickyHeader";
 import Hero from "@/components/Hero";
 import InfoCards from "@/components/InfoCards";
 import Gallery from "@/components/Gallery";
@@ -8,6 +9,7 @@ import ContactForm from "@/components/ContactForm";
 export default function Home() {
   return (
     <main>
+      <StickyHeader />
       <Hero />
       <InfoCards />
       <Gallery />
@@ -15,19 +17,21 @@ export default function Home() {
       <MapEmbed />
       <ContactForm />
 
-      <footer className="bg-black text-white text-center py-6 text-sm">
+      <footer className="border-t border-surface-ring bg-surface py-8 text-center text-sm text-foreground">
         <p>
-          Em caso de avistamento, ligue imediatamente:{" "}
+          Em caso de avistamento, fale imediatamente:{" "}
           <a
             href="https://wa.me/5527981495862"
-            className="font-bold underline hover:text-yellow-400 transition-colors"
+            className="font-bold text-brand-amber underline-offset-2 transition-colors hover:underline"
             target="_blank"
             rel="noopener noreferrer"
           >
             (27) 98149-5862
           </a>
         </p>
-        <p className="mt-1 text-gray-400">Recompensa R$ 500 · Praia de Itaparica, Vila Velha/ES</p>
+        <p className="mt-1 text-foreground-muted">
+          Recompensa R$ 500 · Praia de Itaparica, Vila Velha/ES
+        </p>
       </footer>
     </main>
   );

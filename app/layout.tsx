@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
 import FloatingWhatsapp from "@/components/FloatingWhatsapp";
-import { publicImage } from "@/lib/publicImage";
+import { publicImage, PUBLIC_IMAGES_VERSION } from "@/lib/publicImage";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +27,10 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#dc2626",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0b" },
+  ],
 };
 
 export default function RootLayout({
@@ -36,7 +39,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`${geistSans.variable} h-full antialiased`}>
+    <html
+      lang="pt-BR"
+      className={`${geistSans.variable} h-full bg-background text-foreground antialiased`}
+    >
+      <head>
+        <link
+          rel="preload"
+          as="image"
+          href={`/images/tyr-1.jpg?v=${PUBLIC_IMAGES_VERSION}`}
+        />
+      </head>
       <body className="min-h-full flex flex-col">
         {children}
         <FloatingWhatsapp />

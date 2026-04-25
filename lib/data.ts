@@ -12,16 +12,24 @@ export const pet = {
   sex: "Macho",
   neutered: true,
   weight: "6 kg",
-  disappearedAt: "17 de abril de 2025",
-  disappearedSince: "17/04/2025",
+  disappearedAt: "17 de abril de 2026",
+  disappearedSince: "17/04/2026",
   reward: "R$ 500",
   whatsapp: "5527981495862",
   lastSeen: {
-    location: "R. Otávio Queiroz, 27 — Vila Velha/ES",
-    date: "17/04/2025",
+    location: "Esquina da Av. Luiz Emanoel Vellozo com a R. Otávio Queiroz - Praia de Itaparica",
+    date: "17/04/2026",
     mapsLink: LAST_SIGHTING_MAPS_URL,
   },
 };
+
+/** Mensagem padrão para links do WhatsApp (CTA). */
+export const WHATSAPP_DEFAULT_MESSAGE =
+  "Oi! Acho que vi o Týr — gostaria de compartilhar a informação.";
+
+export function whatsappUrl(message: string = WHATSAPP_DEFAULT_MESSAGE) {
+  return `https://wa.me/${pet.whatsapp}?text=${encodeURIComponent(message)}`;
+}
 
 export const characteristics = [
   { label: "Pelagem", value: "Rajado, pescoço e queixo brancos e barriga laranja" },
@@ -69,7 +77,7 @@ export const gallery: GalleryMediaItem[] = [
   {
     id: 5,
     src: publicVideo("/videos/tyr-5.mp4"),
-    alt: "Týr em movimento — vídeo",
+    alt: "Týr tomando banho — vídeo",
     type: "video",
     poster: publicImage("/images/thumb-tyr-5.png"),
   },
@@ -87,7 +95,7 @@ export const sightings: {
 }[] = [
   {
     id: 1,
-    date: "17/04/2025",
+    date: "17/04/2026",
     location: "R. Otávio Queiroz, 27 — Vila Velha/ES",
     description:
       "Último avistamento confirmado neste endereço. Týr foi visto correndo em direção à rua após um barulho alto.",
