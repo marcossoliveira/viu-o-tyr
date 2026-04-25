@@ -48,8 +48,8 @@ export default function StickyHeader() {
               href="#hero"
               className="min-w-0 text-left text-sm font-black leading-tight text-foreground sm:text-base"
             >
-              <span className="text-brand-red">{pet.name}</span>
-              <span className="ml-1.5 text-foreground-muted">· Gato perdido</span>
+              <span className="ml-1.5 text-foreground-muted">Você viu o {' '}</span>
+              <span className="text-brand-red">{pet.name}?</span>
             </a>
             <div className="flex shrink-0 items-center gap-2">
               <button
