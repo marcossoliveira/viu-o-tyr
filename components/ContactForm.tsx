@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Reveal from "@/components/motion/Reveal";
 import { RevealStagger, RevealStaggerItem } from "@/components/motion/RevealStagger";
+import { CONTACT_FORM_PRIVACY } from "@/lib/data";
 
 type ToastState = { visible: boolean; success: boolean; message: string };
 
@@ -15,6 +16,7 @@ export default function ContactForm() {
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
   const [file, setFile] = useState<File | null>(null);
+  const [includeLocation, setIncludeLocation] = useState(false);
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState<ToastState>({
     visible: false,
@@ -37,11 +39,57 @@ export default function ContactForm() {
     e.preventDefault();
     setLoading(true);
     try {
+      let lat: string | undefined;
+      let lng: string | undefined;
+      let acc: string | undefined;
+
+      if (includeLocation) {
+        if (typeof navigator === "undefined" || !navigator.geolocation) {
+          setLoading(false);
+          showToast(
+            false,
+            "Seu navegador não oferece localização. Desmarque a opção ou use outro aparelho."
+          );
+          return;
+        }
+        const pos = await new Promise<GeolocationPosition | null>(
+          (resolve) => {
+            navigator.geolocation.getCurrentPosition(
+              (p) => resolve(p),
+              () => resolve(null),
+              {
+                enableHighAccuracy: true,
+                timeout: 20_000,
+                maximumAge: 0,
+              }
+            );
+          }
+        );
+        if (!pos) {
+          setLoading(false);
+          showToast(
+            false,
+            "Não foi possível obter a localização. Autorize o acesso no navegador ou desmarque a opção."
+          );
+          return;
+        }
+        lat = String(pos.coords.latitude);
+        lng = String(pos.coords.longitude);
+        if (pos.coords.accuracy != null) {
+          acc = String(pos.coords.accuracy);
+        }
+      }
+
       const fd = new FormData();
       fd.append("name", name);
       fd.append("phone", phone);
       fd.append("message", message);
       if (file) fd.append("file", file);
+      if (lat && lng) {
+        fd.append("latitude", lat);
+        fd.append("longitude", lng);
+        if (acc) fd.append("locationAccuracyM", acc);
+      }
 
       const res = await fetch("/api/contact", { method: "POST", body: fd });
       const data = await res.json();
@@ -52,6 +100,7 @@ export default function ContactForm() {
         setPhone("");
         setMessage("");
         setFile(null);
+        setIncludeLocation(false);
         if (fileRef.current) fileRef.current.value = "";
       } else {
         showToast(false, "Erro ao enviar. Tente pelo WhatsApp.");
@@ -71,7 +120,7 @@ export default function ContactForm() {
       <div className="mx-auto max-w-2xl">
         <Reveal>
           <h2 className="mb-2 text-center text-3xl font-black text-foreground sm:text-4xl">
-            Você viu Týr?
+            Você viu o Týr?
           </h2>
           <p className="mb-10 text-center text-foreground-muted sm:text-base">
             Deixe sua mensagem — qualquer pista é valiosa.
@@ -80,6 +129,16 @@ export default function ContactForm() {
 
         <form onSubmit={handleSubmit} className="flex flex-col">
           <RevealStagger className="flex flex-col gap-5 rounded-2xl bg-surface p-6 ring-1 ring-surface-ring shadow-xl shadow-black/5 sm:p-8 dark:shadow-none">
+            <RevealStaggerItem>
+              <div
+                className="space-y-2 rounded-xl bg-background-subtle/90 p-4 text-xs leading-relaxed text-foreground-muted ring-1 ring-surface-ring"
+                role="note"
+              >
+                <p>{CONTACT_FORM_PRIVACY.confidential}</p>
+                <p>{CONTACT_FORM_PRIVACY.locationUse}</p>
+              </div>
+            </RevealStaggerItem>
+
             <RevealStaggerItem>
               <div className="flex flex-col gap-1">
                 <label
@@ -134,7 +193,7 @@ export default function ContactForm() {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   className={`${inputClass} resize-none`}
-                  placeholder="Onde você viu Týr? Data, horário, local..."
+                  placeholder="Onde você viu o Týr? Data, horário, local..."
                 />
               </div>
             </RevealStaggerItem>
@@ -156,6 +215,26 @@ export default function ContactForm() {
                   className="text-sm text-foreground-muted file:mr-4 file:rounded-lg file:border-0 file:bg-brand-red/10 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-brand-red hover:file:bg-brand-red/20"
                 />
               </div>
+            </RevealStaggerItem>
+
+            <RevealStaggerItem>
+              <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-surface-ring bg-background-subtle/50 p-4 text-sm text-foreground transition hover:bg-background-subtle/80 has-focus-visible:ring-2 has-focus-visible:ring-brand-red/50">
+                <input
+                  type="checkbox"
+                  checked={includeLocation}
+                  onChange={(e) => setIncludeLocation(e.target.checked)}
+                  className="mt-0.5 h-4 w-4 shrink-0 rounded border-surface-ring text-brand-red focus:ring-brand-red"
+                />
+                <span>
+                  <span className="font-semibold text-foreground">
+                    Incluir minha localização neste envio
+                  </span>
+                  <span className="mt-1 block text-foreground-muted">
+                    Usamos o pedido de localização do navegador só agora, no ato do
+                    envio — veja o aviso de privacidade acima.
+                  </span>
+                </span>
+              </label>
             </RevealStaggerItem>
 
             <RevealStaggerItem>

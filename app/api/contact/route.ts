@@ -31,14 +31,43 @@ export async function POST(req: NextRequest) {
   const file =
     fileEntry instanceof File && fileEntry.size > 0 ? fileEntry : null;
 
+  const latRaw = fd.get("latitude");
+  const lngRaw = fd.get("longitude");
+  const accRaw = fd.get("locationAccuracyM");
+  let locationField: string | null = null;
+  if (latRaw != null && lngRaw != null) {
+    const lat = Number(latRaw);
+    const lng = Number(lngRaw);
+    if (Number.isFinite(lat) && Number.isFinite(lng)) {
+      const accM = accRaw != null ? Number(accRaw) : Number.NaN;
+      const accStr = Number.isFinite(accM)
+        ? ` · precisão ≈ ${Math.round(accM)} m`
+        : "";
+      const mapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
+      locationField = `[Abrir no mapa](${mapsUrl})${accStr}\n\`${lat.toFixed(6)}, ${lng.toFixed(6)}\``;
+    }
+  }
+
+  const fields: Array<{
+    name: string;
+    value: string;
+    inline?: boolean;
+  }> = [
+    { name: "Nome", value: truncate(name, MAX_FIELD), inline: true },
+    { name: "Telefone", value: truncate(phone, MAX_FIELD), inline: true },
+    { name: "Mensagem", value: truncate(message, MAX_FIELD) },
+  ];
+  if (locationField) {
+    fields.push({
+      name: "Localização (só neste envio)",
+      value: truncate(locationField, MAX_FIELD),
+    });
+  }
+
   const embed: Record<string, unknown> = {
     title: "Novo avistamento — contato",
     color: 0xe63946,
-    fields: [
-      { name: "Nome", value: truncate(name, MAX_FIELD), inline: true },
-      { name: "Telefone", value: truncate(phone, MAX_FIELD), inline: true },
-      { name: "Mensagem", value: truncate(message, MAX_FIELD) },
-    ],
+    fields,
     timestamp: new Date().toISOString(),
   };
 

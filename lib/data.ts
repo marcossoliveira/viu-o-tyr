@@ -71,6 +71,14 @@ export const REWARD = {
     "Týr é da nossa família. A recompensa é apenas um gesto de gratidão — ele vale infinitamente mais para nós do que qualquer dinheiro do mundo.",
 } as const;
 
+/** Avisos de privacidade do formulário de contato (localização opcional). */
+export const CONTACT_FORM_PRIVACY = {
+  confidential:
+    "Tudo o que você informa aqui é tratado como altamente confidencial.",
+  locationUse:
+    "Se você optar por enviar sua localização, ela será usada somente naquele instante, para apoiar as buscas. Este site não mantém rastreio de GPS além do que você envia nesta mensagem.",
+} as const;
+
 /** Mensagem padrão para links do WhatsApp (CTA). */
 export const WHATSAPP_DEFAULT_MESSAGE =
   "Oi! Acho que vi o Týr — gostaria de compartilhar a informação.";
