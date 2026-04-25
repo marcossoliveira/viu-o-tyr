@@ -42,7 +42,7 @@ export default function Hero() {
     <>
     <section
       id="hero"
-      className="relative h-[100svh] min-h-[640px] w-full overflow-hidden"
+      className="relative h-[100svh] min-h-0 w-full overflow-hidden sm:min-h-[640px]"
     >
       {/* Photo + Ken Burns */}
       <div className="absolute inset-0 z-0">
@@ -55,19 +55,19 @@ export default function Hero() {
             alt="Foto de Týr — gato laranja perdido na Praia de Itaparica, Vila Velha/ES"
             fill
             sizes="100vw"
-            className="object-cover object-center"
+            className="object-cover object-center max-sm:object-[center_32%] sm:object-center"
             priority
           />
         </div>
       </div>
 
-      {/* Gradients */}
+      {/* Gradients: no mobile menos opacidade em baixo para o rosto aparecer por cima do texto */}
       <div
-        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-black/65 via-black/20 to-transparent"
+        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-black/60 via-black/15 to-transparent max-sm:from-black/45 max-sm:via-black/10"
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-black/90 via-black/50 to-black/20"
+        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-black/88 via-black/45 to-black/25 max-sm:from-black/68 max-sm:via-black/28 max-sm:to-transparent"
         aria-hidden
       />
 
@@ -81,10 +81,10 @@ export default function Hero() {
       </div>
 
       {/* Bottom content */}
-      <div className="absolute inset-x-0 bottom-0 z-[2] flex flex-col justify-end px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-24">
+      <div className="absolute inset-x-0 bottom-0 z-[2] flex flex-col justify-end px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-14 max-sm:pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-5 sm:pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:pt-24">
         <div className="mx-auto w-full max-w-6xl">
           <motion.h1
-            className="font-black leading-[0.95] tracking-tight text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.5)] [font-size:clamp(2.75rem,10vw,6rem)]"
+            className="font-black leading-[0.95] tracking-tight text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.5)] [font-size:clamp(2.35rem,10vw,6rem)] max-sm:[font-size:clamp(2.1rem,11vw,3.25rem)]"
             {...fadeUp(0.12)}
           >
             <span className="block text-[0.45em] font-black uppercase tracking-[0.12em] text-white/80">
@@ -96,16 +96,17 @@ export default function Hero() {
           </motion.h1>
 
           <motion.p
-            className="mt-4 max-w-2xl text-pretty text-base text-white/90 sm:text-lg"
+            className="mt-2 max-w-2xl text-pretty text-sm leading-snug text-white/90 max-sm:line-clamp-3 sm:mt-4 sm:text-base sm:leading-normal sm:line-clamp-none sm:text-lg"
+            title={`Desapareceu em ${pet.disappearedAt}. Último avistamento: ${pet.lastSeen.location}.`}
             {...fadeUp(0.22)}
           >
             Desapareceu em <strong className="font-semibold">{pet.disappearedAt}</strong>
             . Último avistamento: {pet.lastSeen.location}.
           </motion.p>
 
-          <motion.div className="mt-6 flex flex-col gap-4" {...fadeUp(0.3)}>
+          <motion.div className="mt-4 flex flex-col gap-2 sm:mt-6 sm:gap-4" {...fadeUp(0.3)}>
             <motion.span
-              className="inline-flex w-fit items-center rounded-2xl bg-brand-amber px-5 py-2.5 text-base font-black text-neutral-950 shadow-xl ring-2 ring-white/20"
+              className="inline-flex w-fit max-w-full items-center rounded-2xl bg-brand-amber px-4 py-2 text-sm font-black text-neutral-950 shadow-xl ring-2 ring-white/20 sm:px-5 sm:py-2.5 sm:text-base"
               animate={
                 reduced
                   ? undefined
@@ -116,23 +117,25 @@ export default function Hero() {
               Recompensa {pet.reward}
             </motion.span>
 
-            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+            <div className="flex flex-row flex-wrap items-stretch gap-2 sm:items-center sm:gap-3">
               <a
                 href={waHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-14 items-center justify-center gap-3 rounded-2xl bg-[#25D366] px-7 py-3.5 text-lg font-black text-white shadow-2xl ring-1 ring-white/20 transition-transform duration-200 hover:scale-[1.02] active:scale-[0.99]"
+                className="inline-flex min-h-12 min-w-0 flex-1 items-center justify-center gap-2 rounded-2xl bg-[#25D366] px-4 py-3 text-base font-black text-white shadow-2xl ring-1 ring-white/20 transition-transform duration-200 hover:scale-[1.02] active:scale-[0.99] sm:min-h-14 sm:flex-none sm:gap-3 sm:px-7 sm:py-3.5 sm:text-lg"
               >
-                <WhatsappIcon className="h-6 w-6 shrink-0" />
-                Falar no WhatsApp
+                <WhatsappIcon className="h-5 w-5 shrink-0 sm:h-6 sm:w-6" />
+                <span className="truncate sm:hidden">WhatsApp</span>
+                <span className="hidden sm:inline">Falar no WhatsApp</span>
               </a>
               <button
                 type="button"
                 onClick={() => setShareOpen(true)}
-                className="inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl border border-white/30 bg-white/10 px-5 py-3 text-base font-bold text-white backdrop-blur-md transition hover:bg-white/20"
+                className="inline-flex min-h-12 min-w-0 flex-1 items-center justify-center gap-2 rounded-2xl border border-white/30 bg-white/10 px-3 py-3 text-sm font-bold text-white backdrop-blur-md transition hover:bg-white/20 sm:min-h-14 sm:flex-none sm:px-5 sm:text-base"
               >
                 <PiShareNetwork className="h-5 w-5 shrink-0" aria-hidden />
-                Compartilhar
+                <span className="sm:hidden">Partilhar</span>
+                <span className="hidden sm:inline">Compartilhar</span>
               </button>
             </div>
           </motion.div>
@@ -142,7 +145,7 @@ export default function Hero() {
           {!scrolled && (
             <motion.div
               key="scroll-hint"
-              className="mx-auto mt-8 flex max-w-6xl flex-col items-center text-white/70"
+              className="mx-auto mt-4 flex max-w-6xl flex-col items-center text-white/70 max-sm:mt-3 sm:mt-8"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, y: [0, 6, 0] }}
               exit={{ opacity: 0, transition: { duration: 0.25 } }}

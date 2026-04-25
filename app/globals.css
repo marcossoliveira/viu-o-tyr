@@ -76,6 +76,14 @@ body {
   animation: hero-kenburns 20s ease-in-out infinite alternate;
 }
 
+/* Em telemóveis o recorte animado tira o foco do rosto — foto estática. */
+@media (max-width: 639px) {
+  .hero-kenburns {
+    animation: none;
+    transform: none;
+  }
+}
+
 dialog::backdrop {
   background: rgba(0, 0, 0, 0.8);
 }

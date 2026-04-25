@@ -7,7 +7,7 @@ export default function FloatingWhatsapp() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Falar no WhatsApp"
-      className="fixed bottom-[max(1.5rem,env(safe-area-inset-bottom))] right-[max(1.5rem,env(safe-area-inset-right))] z-50 flex h-14 w-14 animate-pulse items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg ring-2 ring-green-400/40 transition hover:animate-none hover:bg-[#20bd5a] hover:ring-green-400/60"
+      className="fixed bottom-[max(1.5rem,env(safe-area-inset-bottom))] right-[max(1.5rem,env(safe-area-inset-right))] z-50 flex h-14 w-14 animate-pulse items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg ring-2 ring-green-400/40 transition hover:animate-none hover:bg-[#20bd5a] hover:ring-green-400/60 max-sm:bottom-[max(5.75rem,env(safe-area-inset-bottom))]"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
