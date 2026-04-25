@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { pet } from "@/lib/data";
+import { publicImage } from "@/lib/publicImage";
 
 export default function Hero() {
   return (
@@ -72,7 +73,7 @@ export default function Hero() {
         <div className="flex-1 flex justify-center w-full max-w-md">
           <div className="relative w-full aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border-4 border-red-600">
             <Image
-              src="/images/tyr-1.jpg"
+              src={publicImage("/images/tyr-1.jpg")}
               alt="Foto de Týr — gato laranja perdido na Praia de Itaparica"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"

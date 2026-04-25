@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
 import FloatingWhatsapp from "@/components/FloatingWhatsapp";
+import { publicImage } from "@/lib/publicImage";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,7 +18,9 @@ export const metadata: Metadata = {
     title: "GATO PERDIDO — Týr | Praia de Itaparica, Vila Velha/ES",
     description:
       "Týr desapareceu em 17/04 na Praia de Itaparica. Recompensa R$ 500. Se você o viu, entre em contato pelo WhatsApp.",
-    images: [{ url: "/images/tyr-1.jpg", width: 800, height: 600, alt: "Týr" }],
+    images: [
+      { url: publicImage("/images/tyr-1.jpg"), width: 800, height: 600, alt: "Týr" },
+    ],
     type: "website",
   },
   robots: { index: true, follow: true },

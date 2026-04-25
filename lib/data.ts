@@ -1,45 +1,78 @@
+import { publicImage, publicVideo } from "./publicImage";
+
+export const LAST_SIGHTING_MAPS_URL =
+  "https://www.google.com/maps/place/R.+Ot%C3%A1vio+Queiroz,+27+-+Vila+Velha,+ES,+29102-260/@-20.3762612,-40.3105951,18z/data=!4m6!3m5!1s0xb83e1f8cef983f:0x6abdc412aae59783!8m2!3d-20.37637!4d-40.3102802!16s%2Fg%2F11cslg1wgr";
+
 export const pet = {
   name: "Týr",
   species: "Gato",
   breed: "Sem raça definida (SRD)",
-  color: "Laranja e branco",
-  age: "2 anos",
+  color: "Rajado, pescoço e queixo brancos e barriga laranja",
+  age: "5 anos",
   sex: "Macho",
   neutered: true,
-  weight: "4 kg",
+  weight: "6 kg",
   disappearedAt: "17 de abril de 2025",
   disappearedSince: "17/04/2025",
   reward: "R$ 500",
   whatsapp: "5527981495862",
   lastSeen: {
-    location: "Praia de Itaparica, Vila Velha/ES",
+    location: "R. Otávio Queiroz, 27 — Vila Velha/ES",
     date: "17/04/2025",
-    mapsLink:
-      "https://www.google.com/maps/search/Praia+de+Itaparica,+Vila+Velha,+ES",
+    mapsLink: LAST_SIGHTING_MAPS_URL,
   },
 };
 
 export const characteristics = [
-  { label: "Pelagem", value: "Laranja com manchas brancas no peito e patas" },
+  { label: "Pelagem", value: "Rajado, pescoço e queixo brancos e barriga laranja" },
   { label: "Olhos", value: "Amarelos/dourados" },
-  { label: "Tamanho", value: "Médio, por volta de 4 kg" },
+  { label: "Tamanho", value: "Grande, por volta de 6 kg" },
   { label: "Castrado", value: "Sim" },
   { label: "Coleira", value: "Não usava quando desapareceu" },
   { label: "Comportamento", value: "Dócil com pessoas, pode estar assustado" },
   { label: "Microchip", value: "Não" },
 ];
 
-export const gallery: {
+export type GalleryMediaItem = {
   id: number;
   src: string;
   alt: string;
   type: "image" | "video";
   poster?: string;
-}[] = [
-  { id: 1, src: "/images/tyr-1.jpg", alt: "Týr descansando no sofá", type: "image" },
-  { id: 2, src: "/images/tyr-2.jpg", alt: "Týr olhando para a câmera", type: "image" },
-  { id: 3, src: "/images/tyr-3.jpg", alt: "Týr brincando", type: "image" },
-  { id: 4, src: "/images/tyr-4.jpg", alt: "Týr dormindo", type: "image" },
+};
+
+export const gallery: GalleryMediaItem[] = [
+  {
+    id: 1,
+    src: publicImage("/images/tyr-1.jpg"),
+    alt: "Týr atento, olhando o movimento",
+    type: "image",
+  },
+  {
+    id: 2,
+    src: publicImage("/images/tyr-2.jpg"),
+    alt: "Týr olhando para a câmera",
+    type: "image",
+  },
+  {
+    id: 3,
+    src: publicImage("/images/tyr-3.jpg"),
+    alt: "Týr descansando no sofá",
+    type: "image",
+  },
+  {
+    id: 4,
+    src: publicImage("/images/tyr-4.jpg"),
+    alt: "Týr dormindo",
+    type: "image",
+  },
+  {
+    id: 5,
+    src: publicVideo("/videos/tyr-5.mp4"),
+    alt: "Týr em movimento — vídeo",
+    type: "video",
+    poster: publicImage("/images/thumb-tyr-5.png"),
+  },
 ];
 
 export const sightings: {
@@ -49,15 +82,18 @@ export const sightings: {
   description: string;
   mapsLink: string;
   image?: string;
+  video?: string;
+  videoPoster?: string;
 }[] = [
   {
     id: 1,
     date: "17/04/2025",
-    location: "Praia de Itaparica — próximo à entrada principal",
+    location: "R. Otávio Queiroz, 27 — Vila Velha/ES",
     description:
-      "Último avistamento confirmado. Týr foi visto correndo em direção à rua após um barulho alto.",
-    mapsLink:
-      "https://www.google.com/maps/search/Praia+de+Itaparica,+Vila+Velha,+ES",
-    image: "/images/sighting-1.jpg",
+      "Último avistamento confirmado neste endereço. Týr foi visto correndo em direção à rua após um barulho alto.",
+    mapsLink: LAST_SIGHTING_MAPS_URL,
+    image: publicImage("/images/sighting-1.jpg"),
+    video: publicVideo("/videos/ultimo-avistamento.mp4"),
+    videoPoster: publicImage("/images/thumb-ultimo-avistamento.png"),
   },
 ];
