@@ -1,6 +1,7 @@
 import StickyHeader from "@/components/StickyHeader";
 import Hero from "@/components/Hero";
-import InfoCards from "@/components/InfoCards";
+import WhoIsTyr from "@/components/WhoIsTyr";
+import HowToHelp from "@/components/HowToHelp";
 import Gallery from "@/components/Gallery";
 import Sightings from "@/components/Sightings";
 import MapEmbed from "@/components/MapEmbed";
@@ -11,7 +12,8 @@ export default function Home() {
     <main>
       <StickyHeader />
       <Hero />
-      <InfoCards />
+      <WhoIsTyr />
+      <HowToHelp />
       <Gallery />
       <Sightings />
       <MapEmbed />
