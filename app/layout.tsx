@@ -11,11 +11,11 @@ const geistSans = Geist({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://viu-o-tyr.vercel.app"),
-  title: "GATO PERDIDO — Týr | Praia de Itaparica, Vila Velha/ES",
+  title: "Você viu o Týr? | Gato perdido | Praia de Itaparica, Vila Velha/ES",
   description:
     "Týr desapareceu em 17/04 na Praia de Itaparica. Recompensa R$ 500. Se você o viu, entre em contato pelo WhatsApp.",
   openGraph: {
-    title: "GATO PERDIDO — Týr | Praia de Itaparica, Vila Velha/ES",
+    title: "Você viu o Týr? | Gato perdido | Praia de Itaparica, Vila Velha/ES",
     description:
       "Týr desapareceu em 17/04 na Praia de Itaparica. Recompensa R$ 500. Se você o viu, entre em contato pelo WhatsApp.",
     images: [

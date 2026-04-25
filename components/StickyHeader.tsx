@@ -2,13 +2,16 @@
 
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { useCallback, useEffect, useState } from "react";
+import { PiShareNetwork } from "react-icons/pi";
 import { pet, whatsappUrl } from "@/lib/data";
+import ShareModal from "@/components/ShareModal";
 
 const waHref = whatsappUrl();
 
 export default function StickyHeader() {
   const reduced = useReducedMotion() === true;
   const [visible, setVisible] = useState(false);
+  const [shareOpen, setShareOpen] = useState(false);
 
   const onScroll = useCallback(() => {
     const threshold = typeof window !== "undefined" ? window.innerHeight * 0.8 : 0;
@@ -29,6 +32,7 @@ export default function StickyHeader() {
   }, [onScroll]);
 
   return (
+    <>
     <AnimatePresence>
       {visible && (
         <motion.header
@@ -47,19 +51,31 @@ export default function StickyHeader() {
               <span className="text-brand-red">{pet.name}</span>
               <span className="ml-1.5 text-foreground-muted">· Gato perdido</span>
             </a>
-            <a
-              href={waHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex h-10 shrink-0 items-center gap-1.5 rounded-full bg-[#25D366] px-3.5 py-2 text-xs font-black text-white shadow-md sm:h-11 sm:px-4 sm:text-sm"
-            >
-              <WhatsappIcon className="h-4 w-4" />
-              WhatsApp
-            </a>
+            <div className="flex shrink-0 items-center gap-2">
+              <button
+                type="button"
+                aria-label="Compartilhar"
+                onClick={() => setShareOpen(true)}
+                className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-surface-ring bg-surface text-foreground transition hover:bg-background-subtle sm:h-11 sm:w-11"
+              >
+                <PiShareNetwork className="h-4 w-4" aria-hidden />
+              </button>
+              <a
+                href={waHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-10 shrink-0 items-center gap-1.5 rounded-full bg-[#25D366] px-3.5 py-2 text-xs font-black text-white shadow-md sm:h-11 sm:px-4 sm:text-sm"
+              >
+                <WhatsappIcon className="h-4 w-4" />
+                WhatsApp
+              </a>
+            </div>
           </div>
         </motion.header>
       )}
     </AnimatePresence>
+    <ShareModal open={shareOpen} onClose={() => setShareOpen(false)} />
+    </>
   );
 }
 

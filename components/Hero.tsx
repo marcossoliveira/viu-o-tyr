@@ -3,8 +3,10 @@
 import Image from "next/image";
 import { useReducedMotion, motion, AnimatePresence } from "motion/react";
 import { useCallback, useEffect, useState } from "react";
+import { PiShareNetwork } from "react-icons/pi";
 import { pet, whatsappUrl } from "@/lib/data";
 import { publicImage } from "@/lib/publicImage";
+import ShareModal from "@/components/ShareModal";
 
 const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -13,6 +15,7 @@ const waHref = whatsappUrl();
 export default function Hero() {
   const reduced = useReducedMotion() === true;
   const [scrolled, setScrolled] = useState(false);
+  const [shareOpen, setShareOpen] = useState(false);
 
   const onScroll = useCallback(() => {
     setScrolled(window.scrollY > 40);
@@ -36,6 +39,7 @@ export default function Hero() {
   });
 
   return (
+    <>
     <section
       id="hero"
       className="relative h-[100svh] min-h-[640px] w-full overflow-hidden"
@@ -99,7 +103,7 @@ export default function Hero() {
             . Último avistamento: {pet.lastSeen.location}.
           </motion.p>
 
-          <motion.div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center" {...fadeUp(0.3)}>
+          <motion.div className="mt-6 flex flex-col gap-4" {...fadeUp(0.3)}>
             <motion.span
               className="inline-flex w-fit items-center rounded-2xl bg-brand-amber px-5 py-2.5 text-base font-black text-neutral-950 shadow-xl ring-2 ring-white/20"
               animate={
@@ -112,15 +116,25 @@ export default function Hero() {
               Recompensa {pet.reward}
             </motion.span>
 
-            <a
-              href={waHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-14 items-center justify-center gap-3 rounded-2xl bg-[#25D366] px-7 py-3.5 text-lg font-black text-white shadow-2xl ring-1 ring-white/20 transition-transform duration-200 hover:scale-[1.02] active:scale-[0.99]"
-            >
-              <WhatsappIcon className="h-6 w-6 shrink-0" />
-              Falar no WhatsApp
-            </a>
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+              <a
+                href={waHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-14 items-center justify-center gap-3 rounded-2xl bg-[#25D366] px-7 py-3.5 text-lg font-black text-white shadow-2xl ring-1 ring-white/20 transition-transform duration-200 hover:scale-[1.02] active:scale-[0.99]"
+              >
+                <WhatsappIcon className="h-6 w-6 shrink-0" />
+                Falar no WhatsApp
+              </a>
+              <button
+                type="button"
+                onClick={() => setShareOpen(true)}
+                className="inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl border border-white/30 bg-white/10 px-5 py-3 text-base font-bold text-white backdrop-blur-md transition hover:bg-white/20"
+              >
+                <PiShareNetwork className="h-5 w-5 shrink-0" aria-hidden />
+                Compartilhar
+              </button>
+            </div>
           </motion.div>
         </div>
 
@@ -143,6 +157,8 @@ export default function Hero() {
         </AnimatePresence>
       </div>
     </section>
+    <ShareModal open={shareOpen} onClose={() => setShareOpen(false)} />
+    </>
   );
 }
 
