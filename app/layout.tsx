@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
 import FloatingWhatsapp from "@/components/FloatingWhatsapp";
+import { SITE_URL } from "@/lib/data";
 import { publicImage, PUBLIC_IMAGES_VERSION } from "@/lib/publicImage";
 
 const geistSans = Geist({
@@ -10,7 +11,7 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://viu-o-tyr.vercel.app"),
+  metadataBase: new URL(SITE_URL),
   title: "Você viu o Týr? | Gato perdido | Praia de Itaparica, Vila Velha/ES",
   description:
     "Týr desapareceu em 17/04 na Praia de Itaparica. Recompensa R$ 500. Se você o viu, entre em contato pelo WhatsApp.",

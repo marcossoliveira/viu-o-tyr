@@ -6,6 +6,7 @@ import Gallery from "@/components/Gallery";
 import Sightings from "@/components/Sightings";
 import MapEmbed from "@/components/MapEmbed";
 import ContactForm from "@/components/ContactForm";
+import { WHATSAPP_DISPLAY, whatsappUrl } from "@/lib/data";
 
 export default function Home() {
   return (
@@ -23,12 +24,12 @@ export default function Home() {
         <p>
           Em caso de avistamento, fale imediatamente:{" "}
           <a
-            href="https://wa.me/5527981495862"
+            href={whatsappUrl()}
             className="font-bold text-brand-amber underline-offset-2 transition-colors hover:underline"
             target="_blank"
             rel="noopener noreferrer"
           >
-            (27) 98149-5862
+            {WHATSAPP_DISPLAY}
           </a>
         </p>
         <p className="mt-1 text-foreground-muted">

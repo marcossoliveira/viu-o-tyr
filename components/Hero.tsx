@@ -134,7 +134,7 @@ export default function Hero() {
                 className="inline-flex min-h-12 min-w-0 flex-1 items-center justify-center gap-2 rounded-2xl border border-white/30 bg-white/10 px-3 py-3 text-sm font-bold text-white backdrop-blur-md transition hover:bg-white/20 sm:min-h-14 sm:flex-none sm:px-5 sm:text-base"
               >
                 <PiShareNetwork className="h-5 w-5 shrink-0" aria-hidden />
-                <span className="sm:hidden">Partilhar</span>
+                <span className="sm:hidden">Compartilhar</span>
                 <span className="hidden sm:inline">Compartilhar</span>
               </button>
             </div>

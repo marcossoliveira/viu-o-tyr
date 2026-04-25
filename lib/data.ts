@@ -26,8 +26,22 @@ export const SITE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://viu-o-tyr.vercel.app"
 ).replace(/\/$/, "");
 
-export const LAST_SIGHTING_MAPS_URL =
+const DEFAULT_LAST_SIGHTING_MAPS_URL =
   "https://www.google.com/maps/place/R.+Ot%C3%A1vio+Queiroz,+27+-+Vila+Velha,+ES,+29102-260/@-20.3762612,-40.3105951,18z/data=!4m6!3m5!1s0xb83e1f8cef983f:0x6abdc412aae59783!8m2!3d-20.37637!4d-40.3102802!16s%2Fg%2F11cslg1wgr";
+
+export const LAST_SIGHTING_MAPS_URL =
+  process.env.NEXT_PUBLIC_LAST_SIGHTING_MAPS_URL?.trim() ||
+  DEFAULT_LAST_SIGHTING_MAPS_URL;
+
+function petWhatsAppDigits(): string {
+  const raw = process.env.NEXT_PUBLIC_PET_WHATSAPP ?? "5527996662009";
+  const digits = raw.replace(/\D/g, "");
+  return digits || "5527996662009";
+}
+
+/** Telefone de contato formatado (ex.: rodapé). */
+export const WHATSAPP_DISPLAY =
+  process.env.NEXT_PUBLIC_WHATSAPP_DISPLAY ?? "(27) 99666-2009";
 
 export const pet = {
   name: "Týr",
@@ -41,7 +55,7 @@ export const pet = {
   disappearedAt: "17 de abril de 2026",
   disappearedSince: "17/04/2026",
   reward: "R$ 500",
-  whatsapp: "5527981495862",
+  whatsapp: petWhatsAppDigits(),
   lastSeen: {
     location: "Esquina da Av. Luiz Emanoel Vellozo com a R. Otávio Queiroz - Praia de Itaparica",
     date: "17/04/2026",
