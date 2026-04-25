@@ -15,6 +15,9 @@ export const metadata: Metadata = {
   title: "Você viu o Týr? | Gato perdido | Praia de Itaparica, Vila Velha/ES",
   description:
     "Týr desapareceu em 17/04 na Praia de Itaparica. Recompensa R$ 500. Se você o viu, entre em contato pelo WhatsApp.",
+  icons: {
+    icon: "/icon.svg",
+  },
   openGraph: {
     title: "Você viu o Týr? | Gato perdido | Praia de Itaparica, Vila Velha/ES",
     description:
