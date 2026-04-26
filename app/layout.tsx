@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
 import FloatingWhatsapp from "@/components/FloatingWhatsapp";
+import VisitTracker from "@/components/VisitTracker";
 import { SITE_URL } from "@/lib/data";
 import { publicImage, PUBLIC_IMAGES_VERSION } from "@/lib/publicImage";
 
@@ -56,6 +57,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col">
         {children}
+        <VisitTracker />
         <FloatingWhatsapp />
       </body>
     </html>
